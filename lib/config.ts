@@ -59,7 +59,7 @@ export const config = {
     { year: "2022", title: "Ngày đầu tiên", desc: "Bước vào môi trường mới với nhiều bỡ ngỡ nhưng cũng tràn đầy hi vọng, vào hành trình mới." },
     { year: "2023", title: "Những đêm không ngủ", desc: "Deadline, đồ án, những người bạn cùng thức tới sáng. Và CMATH - ngôi nhà thứ hai của mình." },
     { year: "2024", title: "Sự kiên trì", desc: "Sáng thực tập, chiều học đại cương, tối trợ giảng." },
-    { year: "2025", title: "Thời gian dễ chịu nhất trong 4 năm đại học", desc: "Những môn chuyên ngành, những công việc vốn có, và ... một tình yêu dành cho người con gái ấy ở xứ sở kim chi." },
+    { year: "2025", title: "Thời gian dễ chịu nhất trong 4 năm đại học", desc: "Những môn chuyên ngành, những công việc vốn có, và ... một tình yêu dành cho người con gái ấy nơi xứ sở kim chi." },
     { year: "2026", title: "Tốt nghiệp", desc: "Người ta thường nói, khi một cánh cửa đóng lại, một cánh cửa khác sẽ mở ra. Và nếu như bạn đủ yêu, thì hãy là người mở cánh cửa ấy, đừng để bản thân bị mắc kẹt." },
   ],
 } as const;
