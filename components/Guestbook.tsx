@@ -79,10 +79,9 @@ export default function Guestbook() {
           <span className="thanks-icon" aria-hidden="true">
             💌
           </span>
-          <h3>Đã nhận được rồi!</h3>
+          <h3>Lời nhờ vả cuối cùng</h3>
           <p>
-            Cảm ơn bạn thật nhiều vì những dòng vừa viết. Mình sẽ đọc từng chữ — và giữ lại
-            cho riêng mình. Hẹn gặp bạn trong ngày đặc biệt ấy nhé.
+            Do người thân không được vào hội trường nên mình không nắm được cụ thể khi nào bạn đến. Vậy nên hãy liên lạc với mình khi tới nơi để mình có thể tiếp đón nhaa.
           </p>
           <button
             type="button"

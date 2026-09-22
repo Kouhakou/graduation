@@ -23,8 +23,8 @@ export default function Page() {
         <section id="dem-nguoc">
           <div className="wrap narrow" style={{ textAlign: "center" }}>
             <Reveal>
-              <span className="eyebrow">Còn bao lâu nữa</span>
-              <h2 className="section-title">Ngày ấy đang tới rất gần</h2>
+              <span className="eyebrow">Thời gian diễn ra lễ tốt nghiệp</span>
+              <h2 className="section-title">Sớm thôi, chỉ còn</h2>
             </Reveal>
 
             <Reveal delay={120}>

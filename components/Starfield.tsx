@@ -11,12 +11,24 @@ type Star = {
   hue: string;
 };
 
+type ShootingStar = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  len: number;
+  life: number; // 1 -> 0, dùng làm độ mờ dần
+  hue: string;
+};
+
 const HUES = ["255, 255, 255", "233, 196, 106", "139, 124, 246", "86, 207, 225"];
+const SHOOT_HUES = ["255, 255, 255", "233, 196, 106", "86, 207, 225"];
 
 /**
  * Nền sao trôi tự do kiểu vũ trụ: hoàn toàn tự động theo thời gian,
  * không phụ thuộc con trỏ chuột (hiệu ứng theo chuột nằm ở CursorStars).
  * Cuộn trang vẫn tạo chiều sâu — sao gần cuộn chậm hơn sao xa.
+ * Sao băng bay chéo qua màn hình liên tục theo chu kỳ ngắn, tối đa 5 vệt cùng lúc.
  */
 export default function Starfield() {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -30,11 +42,27 @@ export default function Starfield() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let stars: Star[] = [];
+    let shootingStars: ShootingStar[] = [];
     let width = 0;
     let height = 0;
     let raf = 0;
     let t = 0;
     let scrollY = 0;
+    let nextShootAt = 0.6 + Math.random() * 1.2;
+
+    function spawnShootingStar() {
+      // Xuất phát rải khắp nửa trên màn hình; bay chéo xuống-trái như sao băng thật
+      const speed = 11 + Math.random() * 7;
+      shootingStars.push({
+        x: width * (0.15 + Math.random() * 0.8),
+        y: height * Math.random() * 0.4,
+        vx: -speed * (0.78 + Math.random() * 0.22),
+        vy: speed * (0.32 + Math.random() * 0.28),
+        len: 90 + Math.random() * 70,
+        life: 1,
+        hue: SHOOT_HUES[Math.floor(Math.random() * SHOOT_HUES.length)],
+      });
+    }
 
     function build() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -100,6 +128,56 @@ export default function Starfield() {
           ctx!.beginPath();
           ctx!.arc(x, wrapped, s.r * 3.4, 0, Math.PI * 2);
           ctx!.fillStyle = `rgba(${s.hue}, ${alpha * 0.1})`;
+          ctx!.fill();
+        }
+      }
+
+      // Sao băng: bắn dày hơn, tối đa 5 vệt cùng lúc
+      if (!reduced) {
+        if (t >= nextShootAt && shootingStars.length < 5) {
+          spawnShootingStar();
+          nextShootAt = t + 0.9 + Math.random() * 1.8;
+        }
+
+        for (const s of shootingStars) {
+          s.x += s.vx;
+          s.y += s.vy;
+          s.life -= 0.012;
+        }
+
+        shootingStars = shootingStars.filter(
+          (s) => s.life > 0 && s.x > -160 && s.y < height + 160,
+        );
+
+        for (const s of shootingStars) {
+          const speedMag = Math.hypot(s.vx, s.vy) || 1;
+          const dirX = s.vx / speedMag;
+          const dirY = s.vy / speedMag;
+          const tailX = s.x - dirX * s.len;
+          const tailY = s.y - dirY * s.len;
+          const alpha = Math.max(0, s.life);
+
+          const grad = ctx!.createLinearGradient(s.x, s.y, tailX, tailY);
+          grad.addColorStop(0, `rgba(${s.hue}, ${alpha})`);
+          grad.addColorStop(1, `rgba(${s.hue}, 0)`);
+
+          ctx!.strokeStyle = grad;
+          ctx!.lineWidth = 2;
+          ctx!.lineCap = "round";
+          ctx!.beginPath();
+          ctx!.moveTo(s.x, s.y);
+          ctx!.lineTo(tailX, tailY);
+          ctx!.stroke();
+
+          // Đầu sáng + quầng nhỏ
+          ctx!.beginPath();
+          ctx!.arc(s.x, s.y, 1.6, 0, Math.PI * 2);
+          ctx!.fillStyle = `rgba(${s.hue}, ${alpha})`;
+          ctx!.fill();
+
+          ctx!.beginPath();
+          ctx!.arc(s.x, s.y, 5, 0, Math.PI * 2);
+          ctx!.fillStyle = `rgba(${s.hue}, ${alpha * 0.25})`;
           ctx!.fill();
         }
       }

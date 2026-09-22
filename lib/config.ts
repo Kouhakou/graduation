@@ -24,12 +24,12 @@ export const config = {
    * Thời điểm diễn ra buổi lễ (dùng cho đồng hồ đếm ngược).
    * Định dạng ISO, có múi giờ Việt Nam (+07:00).
    */
-  eventISO: "2026-09-27T09:00:00+07:00",
+  eventISO: "2026-09-27T10:00:00+07:00",
 
   /** Các dòng hiển thị trong phần "Chi tiết buổi lễ" */
   event: {
     dateText: "Chủ nhật, 27/09/2026",
-    timeText: "09:00 — 12:00",
+    timeText: "10:00 — 12:00",
     venue: "Hội trường C2",
     address: "Đại học Bách Khoa Hà Nội",
     dressCode: "Hãy mặc những gì bạn thích nhất nha",

@@ -604,6 +604,9 @@ section {
 
 .tile {
   position: relative;
+  /* Grid giãn đều chiều cao ô .reveal bọc ngoài, nhưng .tile bên trong
+     cần height: 100% mới lấp đầy — nếu không, khung ít chữ sẽ ngắn hơn. */
+  height: 100%;
   padding: 30px 26px;
   border: 1px solid var(--stroke);
   border-radius: var(--radius);
