@@ -6,14 +6,12 @@ import { fireConfetti } from "./Confetti";
 const MAX_MESSAGE = 1500;
 
 const RELATIONS = [
-  "Bạn cùng lớp",
-  "Bạn cùng phòng / ký túc xá",
-  "Bạn thân",
-  "Thầy / Cô",
-  "Anh / Chị / Em",
+  "Một ngày bình thường có nắng và gió, trăng và sao",
+  "Bình nguyên vô tận/ Summoner's Rift",
+  "Ngôi nhà thứ hai, thứ ba, thứ n....",
+  "Học sinh (cưng)",
   "Gia đình",
-  "Đồng nghiệp",
-  "Khác",
+  "Nhớ thế nào được chời",
 ];
 
 type Status = { kind: "idle" | "sending" | "error"; text?: string } | { kind: "sent" };
